@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniStop | Precision Aggregate Engine 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #030712; }
+        .glass-panel { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: rgba(10, 16, 28, 0.9); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .blue-glow { box-shadow: 0 0 60px -15px rgba(37, 99, 235, 0.3); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+    <!-- TOP HEADER NAVBAR (EXACT HOMEPAGE MATCH) -->
+    <header class="sticky top-0 z-50 bg-[#030712]/80 backdrop-blur-md border-b border-white/5 px-6 lg:px-12 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="index.html" class="text-2xl font-black tracking-tight text-white inline-block">
+                UniStop<span class="text-blue-500">.</span>  
+            </a>          
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                <a href="calculator.html" class="text-white font-semibold transition border-b-2 border-blue-500 pb-1">Calculators</a>
+                <a href="chance.txt" class="hover:text-white transition">Chance Estimator</a>
+                <a href="universities.html" class="hover:text-white transition">Universities</a>
+                <a href="compare.txt" class="hover:text-white transition">Compare</a>
+                <a href="recommendations.txt" class="hover:text-white transition">Recommendations</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <button class="p-2.5 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                </button>
+                <a href="calculator.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center gap-2">
+                    <span>Launch Calc</span>
+                    <span class="text-xs">↗</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CALCULATOR WORKSPACE -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-6 lg:px-12 py-10 relative">
+        
+        <!-- Ambient Background Glow -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+        <!-- Section Badge & Hero Header -->
+        <div class="mb-8 space-y-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="text-blue-400 text-[11px] font-bold tracking-widest uppercase">ADMISSION ALGORITHMS 2026</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+                PRECISION IN <br class="hidden sm:inline" />EVERY DECISION.
+            </h1>
+            <p class="text-gray-400 text-sm sm:text-base max-w-2xl">
+                Eliminate admission uncertainty. Select your target Pakistani university or customize formula weightages to calculate real-time aggregate models.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- INPUT CONTROLS PANEL (LEFT) -->
+            <div class="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl space-y-6">
+                
+                <!-- Target University Dropdown -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Target Institution & Formula</label>
+                    <select id="calc-uni" class="w-full py-3.5 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 transition font-semibold">
+                        <option value="nust">NUST Islamabad — NET (Matric: 10% | FSc: 15% | Test: 75%)</option>
+                        <option value="fast">FAST-NUCES — NU Test (Matric: 10% | FSc: 40% | Test: 50%)</option>
+                        <option value="uet">UET Lahore — ECAT (Matric: 17% | FSc: 50% | ECAT: 33%)</option>
+                        <option value="giki">GIKI Topi — Entry Test (Matric: 10% | FSc: 40% | Test: 50%)</option>
+                        <option value="comsats">COMSATS Islamabad — NTS (Matric: 10% | FSc: 40% | NTS: 50%)</option>
+                        <option value="ned">NED Karachi — Admissions (Matric: 0% | FSc: 50% | Test: 50%)</option>
+                        <option value="air">Air University — AU Test (Matric: 15% | FSc: 35% | Test: 50%)</option>
+                        <option value="custom">⚙️ Custom Manual Formula Split</option>
+                    </select>
+                </div>
+
+                <!-- Discipline Badge Selector -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Target Discipline</label>
+                    <div id="discipline-tags" class="flex flex-wrap gap-2">
+                        <button class="disc-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white border border-blue-500 transition" data-dept="BS CS">BS Computer Science</button>
+                        <button class="disc-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-gray-400 border border-white/10 hover:text-white transition" data-dept="BS SE">Software Engineering</button>
+                        <button class="disc-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-gray-400 border border-white/10 hover:text-white transition" data-dept="BS AI">Artificial Intelligence</button>
+                        <button class="disc-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-gray-400 border border-white/10 hover:text-white transition" data-dept="BE EE">Electrical Eng.</button>
+                        <button class="disc-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-gray-400 border border-white/10 hover:text-white transition" data-dept="BE ME">Mechanical Eng.</button>
+                    </div>
+                </div>
+
+                <!-- Marks Input Grid -->
+                <div class="space-y-4 pt-2">
+                    <!-- Matric -->
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span class="text-gray-300">Matric / O-Level Marks</span>
+                            <span id="label-m-weight" class="text-blue-400 font-bold">10% Weight</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <span class="text-[10px] text-gray-500 block mb-1 uppercase font-bold">Obtained</span>
+                                <input type="number" id="m-obt" value="1050" class="w-full py-3 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm font-semibold focus:outline-none focus:border-blue-500 transition">
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-gray-500 block mb-1 uppercase font-bold">Total</span>
+                                <input type="number" id="m-tot" value="1100" class="w-full py-3 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm font-semibold focus:outline-none focus:border-blue-500 transition">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FSc -->
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span class="text-gray-300">FSc / Intermediate / A-Levels</span>
+                            <span id="label-f-weight" class="text-blue-400 font-bold">15% Weight</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <span class="text-[10px] text-gray-500 block mb-1 uppercase font-bold">Obtained</span>
+                                <input type="number" id="f-obt" value="480" class="w-full py-3 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm font-semibold focus:outline-none focus:border-blue-500 transition">
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-gray-500 block mb-1 uppercase font-bold">Total</span>
+                                <input type="number" id="f-tot" value="520" class="w-full py-3 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm font-semibold focus:outline-none focus:border-blue-500 transition">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Test -->
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-2">
+                            <span id="label-test-title" class="text-gray-300">NET Entry Test</span>
+                            <span id="label-t-weight" class="text-blue-400 font-bold">75% Weight</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <span class="text-[10px] text-gray-500 block mb-1 uppercase font-bold">Obtained Score</span>
+                                <input type="number" id="t-obt" value="152" class="w-full py-3 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm font-semibold focus:outline-none focus:border-blue-500 transition">
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-gray-500 block mb-1 uppercase font-bold">Total Marks</span>
+                                <input type="number" id="t-tot" value="200" class="w-full py-3 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm font-semibold focus:outline-none focus:border-blue-500 transition">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Weight Fields (Hidden by Default) -->
+                <div id="custom-split-box" class="hidden p-4 bg-[#080c14] border border-blue-500/30 rounded-xl space-y-3">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-wider block">Define Custom Split (%)</span>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div>
+                            <span class="text-[10px] text-gray-400 block mb-1">Matric %</span>
+                            <input type="number" id="c-m" value="10" class="w-full p-2.5 bg-gray-900 border border-white/10 rounded-lg text-xs font-bold text-white">
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-gray-400 block mb-1">FSc %</span>
+                            <input type="number" id="c-f" value="40" class="w-full p-2.5 bg-gray-900 border border-white/10 rounded-lg text-xs font-bold text-white">
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-gray-400 block mb-1">Test %</span>
+                            <input type="number" id="c-t" value="50" class="w-full p-2.5 bg-gray-900 border border-white/10 rounded-lg text-xs font-bold text-white">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recalculate Button -->
+                <button id="calc-trigger" class="w-full py-4 bg-white text-gray-950 hover:bg-gray-200 font-extrabold rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-xl hover:scale-[1.01] active:scale-[0.99]">
+                    <span>Recalculate Aggregate</span>
+                    <span>⚡</span>
+                </button>
+            </div>
+
+            <!-- LIVE PREVIEW WIDGET CARD (EXACT HOMEPAGE MATCH) -->
+            <div class="lg:col-span-5 glass-card p-6 sm:p-8 rounded-3xl blue-glow space-y-6 relative overflow-hidden">
+                
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 id="card-uni-title" class="text-xl font-black text-white tracking-wide uppercase">NUST ISLAMABAD</h3>
+                        <p class="text-xs font-semibold text-emerald-400 flex items-center gap-1 mt-1">
+                            <span>✓</span> Verified Algorithm
+                        </p>
+                    </div>
+                    <span id="card-dept-badge" class="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-xs rounded-lg">BS CS</span>
+                </div>
+
+                <!-- Progress Bars Breakdown -->
+                <div class="space-y-5 pt-2">
+                    <!-- Matric Bar -->
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold text-gray-300 mb-2">
+                            <span id="bar-m-title">Matric Marks (10%)</span>
+                            <span id="bar-m-val" class="font-bold text-white">1050 / 1100</span>
+                        </div>
+                        <div class="w-full bg-gray-800/80 rounded-full h-2.5 overflow-hidden">
+                            <div id="bar-m-fill" class="bg-blue-500 h-full transition-all duration-500" style="width: 95%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- FSc Bar -->
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold text-gray-300 mb-2">
+                            <span id="bar-f-title">FSc Marks (15%)</span>
+                            <span id="bar-f-val" class="font-bold text-white">480 / 520</span>
+                        </div>
+                        <div class="w-full bg-gray-800/80 rounded-full h-2.5 overflow-hidden">
+                            <div id="bar-f-fill" class="bg-blue-500 h-full transition-all duration-500" style="width: 92%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Test Bar -->
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold text-gray-300 mb-2">
+                            <span id="bar-t-title">NET Entry Test (75%)</span>
+                            <span id="bar-t-val" class="font-bold text-white">152 / 200</span>
+                        </div>
+                        <div class="w-full bg-gray-800/80 rounded-full h-2.5 overflow-hidden">
+                            <div id="bar-t-fill" class="bg-blue-500 h-full transition-all duration-500" style="width: 76%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aggregate Score Output -->
+                <div class="pt-6 border-t border-white/10 flex items-baseline justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Final Aggregate</span>
+                        <span id="agg-score-display" class="text-5xl font-black text-white tracking-tight">80.57<span class="text-blue-500">%</span></span>
+                    </div>
+                    <div id="status-pill" class="px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold rounded-xl">
+                        Safe Competitive Zone
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 py-6 text-center text-xs text-gray-500">
+        <p>© 2026 UniStop Engine. Built for Pakistani University Admissions.</p>
+    </footer>
+
+    <!-- ENGINE JAVASCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const uniSelect = document.getElementById('calc-uni');
+            const customSplitBox = document.getElementById('custom-split-box');
+
+            const mObt = document.getElementById('m-obt');
+            const mTot = document.getElementById('m-tot');
+            const fObt = document.getElementById('f-obt');
+            const fTot = document.getElementById('f-tot');
+            const tObt = document.getElementById('t-obt');
+            const tTot = document.getElementById('t-tot');
+
+            const cM = document.getElementById('c-m');
+            const cF = document.getElementById('c-f');
+            const cT = document.getElementById('c-t');
+
+            const labelMWeight = document.getElementById('label-m-weight');
+            const labelFWeight = document.getElementById('label-f-weight');
+            const labelTWeight = document.getElementById('label-t-weight');
+            const labelTestTitle = document.getElementById('label-test-title');
+
+            const cardUniTitle = document.getElementById('card-uni-title');
+            const cardDeptBadge = document.getElementById('card-dept-badge');
+
+            const barMTitle = document.getElementById('bar-m-title');
+            const barFTitle = document.getElementById('bar-f-title');
+            const barTTitle = document.getElementById('bar-t-title');
+
+            const barMVal = document.getElementById('bar-m-val');
+            const barFVal = document.getElementById('bar-f-val');
+            const barTVal = document.getElementById('bar-t-val');
+
+            const barMFill = document.getElementById('bar-m-fill');
+            const barFFill = document.getElementById('bar-f-fill');
+            const barTFill = document.getElementById('bar-t-fill');
+
+            const aggDisplay = document.getElementById('agg-score-display');
+            const statusPill = document.getElementById('status-pill');
+
+            let selectedDept = "BS CS";
+
+            const presetData = {
+                nust: { name: "NUST ISLAMABAD", mw: 10, fw: 15, tw: 75, test: "NET Entry Test" },
+                fast: { name: "FAST-NUCES", mw: 10, fw: 40, tw: 50, test: "NU Entry Test" },
+                uet: { name: "UET LAHORE", mw: 17, fw: 50, tw: 33, test: "ECAT Test" },
+                giki: { name: "GIKI TOPI", mw: 10, fw: 40, tw: 50, test: "GIKI Test" },
+                comsats: { name: "COMSATS ISLAMABAD", mw: 10, fw: 40, tw: 50, test: "NTS NAT Test" },
+                ned: { name: "NED UNIVERSITY", mw: 0, fw: 50, tw: 50, test: "NED Test" },
+                air: { name: "AIR UNIVERSITY", mw: 15, fw: 35, tw: 50, test: "AU Test" },
+                custom: { name: "CUSTOM FORMULA", mw: 10, fw: 40, tw: 50, test: "Entry Test" }
+            };
+
+            // Discipline Tag Selector
+            document.querySelectorAll('.disc-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.disc-btn').forEach(b => {
+                        b.className = "disc-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-gray-400 border border-white/10 hover:text-white transition";
+                    });
+                    this.className = "disc-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white border border-blue-500 transition";
+                    selectedDept = this.getAttribute('data-dept');
+                    cardDeptBadge.textContent = selectedDept;
+                });
+            });
+
+            function runEngine() {
+                const key = uniSelect.value;
+                let cfg = presetData[key];
+
+                if (key === 'custom') {
+                    customSplitBox.classList.remove('hidden');
+                    cfg.mw = parseFloat(cM.value) || 0;
+                    cfg.fw = parseFloat(cF.value) || 0;
+                    cfg.tw = parseFloat(cT.value) || 0;
+                } else {
+                    customSplitBox.classList.add('hidden');
+                }
+
+                // Update Labels & Header
+                labelMWeight.textContent = `${cfg.mw}% Weight`;
+                labelFWeight.textContent = `${cfg.fw}% Weight`;
+                labelTWeight.textContent = `${cfg.tw}% Weight`;
+                labelTestTitle.textContent = cfg.test;
+
+                cardUniTitle.textContent = cfg.name;
+
+                barMTitle.textContent = `Matric Marks (${cfg.mw}%)`;
+                barFTitle.textContent = `FSc Marks (${cfg.fw}%)`;
+                barTTitle.textContent = `${cfg.test} (${cfg.tw}%)`;
+
+                // Calculate Percentages
+                const mo = parseFloat(mObt.value) || 0;
+                const mt = parseFloat(mTot.value) || 1;
+                const fo = parseFloat(fObt.value) || 0;
+                const ft = parseFloat(fTot.value) || 1;
+                const to = parseFloat(tObt.value) || 0;
+                const tt = parseFloat(tTot.value) || 1;
+
+                const mPct = (mo / mt) * 100;
+                const fPct = (fo / ft) * 100;
+                const tPct = (to / tt) * 100;
+
+                barMVal.textContent = `${mo} / ${mt}`;
+                barFVal.textContent = `${fo} / ${ft}`;
+                barTVal.textContent = `${to} / ${tt}`;
+
+                barMFill.style.width = `${Math.min(Math.max(mPct, 0), 100)}%`;
+                barFFill.style.width = `${Math.min(Math.max(fPct, 0), 100)}%`;
+                barTFill.style.width = `${Math.min(Math.max(tPct, 0), 100)}%`;
+
+                const aggregate = (mPct * (cfg.mw / 100)) + (fPct * (cfg.fw / 100)) + (tPct * (cfg.tw / 100));
+                const finalScore = aggregate.toFixed(2);
+
+                aggDisplay.innerHTML = `${finalScore}<span class="text-blue-500">%</span>`;
+
+                if (aggregate >= 78) {
+                    statusPill.className = "px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold rounded-xl";
+                    statusPill.textContent = "Safe Competitive Zone";
+                } else if (aggregate >= 68) {
+                    statusPill.className = "px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold rounded-xl";
+                    statusPill.textContent = "Moderate Admission Standing";
+                } else {
+                    statusPill.className = "px-3.5 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-bold rounded-xl";
+                    statusPill.textContent = "High Risk / Borderline";
+                }
+            }
+
+            uniSelect.addEventListener('change', runEngine);
+            document.getElementById('calc-trigger').addEventListener('click', runEngine);
+            [mObt, mTot, fObt, fTot, tObt, tTot, cM, cF, cT].forEach(el => el.addEventListener('input', runEngine));
+
+            runEngine();
+        });
+    </script>
+</body>
+</html>

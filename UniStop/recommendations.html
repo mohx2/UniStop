@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniStop | AI Admissions Strategy & Recommendations Engine 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #030712; }
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: rgba(10, 16, 28, 0.95); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .blue-glow { box-shadow: 0 0 60px -15px rgba(37, 99, 235, 0.3); }
+        .emerald-glow { box-shadow: 0 0 40px -10px rgba(16, 185, 129, 0.2); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+    <!-- TOP HEADER NAVBAR -->
+    <header class="sticky top-0 z-50 bg-[#030712]/85 backdrop-blur-md border-b border-white/5 px-6 lg:px-12 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="index.html" class="text-2xl font-black tracking-tight text-white inline-block">
+                UniStop<span class="text-blue-500">.</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                <a href="calculator.html" class="hover:text-white transition">Calculators</a>
+                <a href="chance.html" class="hover:text-white transition">Chance Estimator</a>
+                <a href="universities.html" class="hover:text-white transition">Universities</a>
+                <a href="compare.html" class="hover:text-white transition">Compare</a>
+                <a href="recommendations.html" class="text-white font-semibold transition border-b-2 border-blue-500 pb-1">Recommendations</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <button onclick="window.print()" class="p-2.5 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition" title="Print/Export Report">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                </button>
+                <a href="calculator.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center gap-2">
+                    <span>Launch Calc</span>
+                    <span class="text-xs">↗</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN RECOMMENDATION WORKSPACE -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-6 lg:px-12 py-10 relative">
+        
+        <!-- Ambient Background Glow -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-blue-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+
+        <!-- Section Badge & Hero Header -->
+        <div class="mb-10 space-y-3">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="text-blue-400 text-[11px] font-bold tracking-widest uppercase">ADMISSIONS STRATEGY & RISK MATRIX 2026</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+                AI MATCH & PORTFOLIO <br class="hidden sm:inline" />RECOMMENDATIONS.
+            </h1>
+            <p class="text-gray-400 text-sm sm:text-base max-w-2xl">
+                Configure your academic standing, location preferences, and maximum tuition budget. The engine models historical cutoffs to construct a balanced admission portfolio.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- INPUT CONTROLS PANEL (LEFT) -->
+            <div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-3xl space-y-6">
+                
+                <div class="flex items-center justify-between border-b border-white/5 pb-4">
+                    <h2 class="text-lg font-black text-white">Student Profile</h2>
+                    <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded border border-blue-500/30">Live Simulator</span>
+                </div>
+
+                <!-- Aggregate Input -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-xs font-bold text-gray-400 uppercase tracking-wider">Your Aggregate (%)</label>
+                        <span id="agg-display" class="text-xs font-bold text-blue-400">78.50%</span>
+                    </div>
+                    <input type="number" id="rec-agg" value="78.50" step="0.05" min="40" max="100" class="w-full py-3.5 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-xl font-black focus:outline-none focus:border-blue-500 transition">
+                </div>
+
+                <!-- Discipline Interest -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Primary Academic Field</label>
+                    <select id="rec-domain" class="w-full py-3.5 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 transition font-semibold">
+                        <option value="CS">Computer Science, AI & Software</option>
+                        <option value="ENG">Electrical & Mechanical Engineering</option>
+                        <option value="BUS">Business Analytics & Management</option>
+                    </select>
+                </div>
+
+                <!-- Preferred Location -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Preferred Location</label>
+                    <select id="rec-city" class="w-full py-3.5 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 transition font-semibold">
+                        <option value="all">All Pakistan Locations</option>
+                        <option value="Islamabad">Islamabad / Rawalpindi</option>
+                        <option value="Lahore">Lahore</option>
+                        <option value="Karachi">Karachi</option>
+                        <option value="Topi">Topi (KPK)</option>
+                    </select>
+                </div>
+
+                <!-- Max Semester Fee Budget -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Semester Fee Ceiling (PKR)</label>
+                    <select id="rec-budget" class="w-full py-3.5 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 transition font-semibold">
+                        <option value="999999">No Budget Cap</option>
+                        <option value="150000">Under PKR 150,000 / sem</option>
+                        <option value="250000">Under PKR 250,000 / sem</option>
+                        <option value="350000">Under PKR 350,000 / sem</option>
+                    </select>
+                </div>
+
+                <!-- Risk Tolerance Filter -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Strategy Bias</label>
+                    <select id="rec-bias" class="w-full py-3.5 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 transition font-semibold">
+                        <option value="balanced">Balanced (Safe + Target + Reach)</option>
+                        <option value="safe">Conservative (Safe Bet Focus)</option>
+                        <option value="ambitious">Ambitious (High Tier Focus)</option>
+                    </select>
+                </div>
+
+                <button id="generate-rec-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-extrabold rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30">
+                    <span>Recalculate Strategy Matrix</span>
+                    <span class="text-xs">⚡</span>
+                </button>
+
+            </div>
+
+            <!-- RECOMMENDATIONS DISPLAY PANEL (RIGHT) -->
+            <div class="lg:col-span-7 space-y-6">
+                
+                <!-- SUMMARY METRICS BAR -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="glass-panel p-4 rounded-2xl border-l-4 border-l-emerald-500">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Safe Matches</span>
+                        <span id="stat-safe-count" class="text-2xl font-black text-emerald-400">0</span>
+                    </div>
+                    <div class="glass-panel p-4 rounded-2xl border-l-4 border-l-blue-500">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Target Matches</span>
+                        <span id="stat-target-count" class="text-2xl font-black text-blue-400">0</span>
+                    </div>
+                    <div class="glass-panel p-4 rounded-2xl border-l-4 border-l-rose-500">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Reach Options</span>
+                        <span id="stat-reach-count" class="text-2xl font-black text-rose-400">0</span>
+                    </div>
+                </div>
+
+                <!-- Tier 1: Safe Bet Category -->
+                <div class="glass-panel p-6 rounded-3xl space-y-4">
+                    <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <div>
+                                <h3 class="text-base font-black text-white">Safe Bet Programs</h3>
+                                <p class="text-[11px] text-gray-400">High admission probability (>90% likelihood)</p>
+                            </div>
+                        </div>
+                        <span id="badge-safe" class="text-xs font-bold text-emerald-400 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">0 Match</span>
+                    </div>
+                    <div id="list-safe" class="space-y-3"></div>
+                </div>
+
+                <!-- Tier 2: Target/Competitive Category -->
+                <div class="glass-panel p-6 rounded-3xl space-y-4">
+                    <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="w-3.5 h-3.5 rounded-full bg-blue-500"></span>
+                            <div>
+                                <h3 class="text-base font-black text-white">Target Programs</h3>
+                                <p class="text-[11px] text-gray-400">Competitive match zone (40% to 85% likelihood)</p>
+                            </div>
+                        </div>
+                        <span id="badge-target" class="text-xs font-bold text-blue-400 px-3 py-1 bg-blue-500/10 rounded-full border border-blue-500/20">0 Match</span>
+                    </div>
+                    <div id="list-target" class="space-y-3"></div>
+                </div>
+
+                <!-- Tier 3: Reach Category -->
+                <div class="glass-panel p-6 rounded-3xl space-y-4">
+                    <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="w-3.5 h-3.5 rounded-full bg-rose-500"></span>
+                            <div>
+                                <h3 class="text-base font-black text-white">Aspirational Reach Programs</h3>
+                                <p class="text-[11px] text-gray-400">Risky cutoffs requiring performance push (<40% likelihood)</p>
+                            </div>
+                        </div>
+                        <span id="badge-reach" class="text-xs font-bold text-rose-400 px-3 py-1 bg-rose-500/10 rounded-full border border-rose-500/20">0 Match</span>
+                    </div>
+                    <div id="list-reach" class="space-y-3"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 py-6 text-center text-xs text-gray-500">
+        <p>© 2026 UniStop Engine. Built for Pakistani University Admissions.</p>
+    </footer>
+
+    <!-- ENGINE LOGIC SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const database = [
+                // CS Programs
+                { uni: "NUST", dept: "BS Computer Science", cat: "CS", cutoff: 78.50, fee: 165000, city: "Islamabad" },
+                { uni: "NUST", dept: "BS Artificial Intelligence", cat: "CS", cutoff: 78.10, fee: 165000, city: "Islamabad" },
+                { uni: "NUST", dept: "BS Data Science", cat: "CS", cutoff: 77.40, fee: 165000, city: "Islamabad" },
+                { uni: "FAST", dept: "BS Computer Science", cat: "CS", cutoff: 74.50, fee: 210000, city: "Islamabad" },
+                { uni: "FAST", dept: "BS Computer Science", cat: "CS", cutoff: 73.80, fee: 210000, city: "Lahore" },
+                { uni: "FAST", dept: "BS Software Engineering", cat: "CS", cutoff: 72.90, fee: 210000, city: "Islamabad" },
+                { uni: "GIKI", dept: "BS Computer Science", cat: "CS", cutoff: 74.80, fee: 480000, city: "Topi" },
+                { uni: "GIKI", dept: "BS Artificial Intelligence", cat: "CS", cutoff: 73.90, fee: 480000, city: "Topi" },
+                { uni: "UET", dept: "BS Computer Science", cat: "CS", cutoff: 79.20, fee: 75000, city: "Lahore" },
+                { uni: "COMSATS", dept: "BS Computer Science", cat: "CS", cutoff: 82.50, fee: 125000, city: "Islamabad" },
+                { uni: "COMSATS", dept: "BS Software Engineering", cat: "CS", cutoff: 80.80, fee: 125000, city: "Islamabad" },
+                { uni: "ITU", dept: "BS Computer Science", cat: "CS", cutoff: 76.50, fee: 135000, city: "Lahore" },
+                { uni: "AIR", dept: "BS Cyber Security", cat: "CS", cutoff: 72.80, fee: 120000, city: "Islamabad" },
+
+                // Engineering Programs
+                { uni: "NUST", dept: "BE Electrical Engineering", cat: "ENG", cutoff: 68.20, fee: 165000, city: "Islamabad" },
+                { uni: "NUST", dept: "BE Mechanical Engineering", cat: "ENG", cutoff: 67.80, fee: 165000, city: "Islamabad" },
+                { uni: "GIKI", dept: "BE Mechanical Engineering", cat: "ENG", cutoff: 67.50, fee: 480000, city: "Topi" },
+                { uni: "UET", dept: "BE Electrical Engineering", cat: "ENG", cutoff: 71.50, fee: 75000, city: "Lahore" },
+
+                // Business Programs
+                { uni: "NUST (NBS)", dept: "BBA Business Administration", cat: "BUS", cutoff: 75.20, fee: 185000, city: "Islamabad" },
+                { uni: "COMSATS", dept: "BS Business Analytics", cat: "BUS", cutoff: 70.10, fee: 115000, city: "Islamabad" }
+            ];
+
+            const recAgg = document.getElementById('rec-agg');
+            const aggDisplay = document.getElementById('agg-display');
+            const recDomain = document.getElementById('rec-domain');
+            const recCity = document.getElementById('rec-city');
+            const recBudget = document.getElementById('rec-budget');
+            const recBias = document.getElementById('rec-bias');
+            const btn = document.getElementById('generate-rec-btn');
+
+            const listSafe = document.getElementById('list-safe');
+            const listTarget = document.getElementById('list-target');
+            const listReach = document.getElementById('list-reach');
+
+            const badgeSafe = document.getElementById('badge-safe');
+            const badgeTarget = document.getElementById('badge-target');
+            const badgeReach = document.getElementById('badge-reach');
+
+            const statSafe = document.getElementById('stat-safe-count');
+            const statTarget = document.getElementById('stat-target-count');
+            const statReach = document.getElementById('stat-reach-count');
+
+            function runRecommendationStrategy() {
+                const agg = parseFloat(recAgg.value) || 0;
+                aggDisplay.textContent = `${agg.toFixed(2)}%`;
+
+                const domain = recDomain.value;
+                const city = recCity.value;
+                const maxFee = parseFloat(recBudget.value) || 999999;
+                const bias = recBias.value;
+
+                let safe = [], target = [], reach = [];
+
+                database.forEach(item => {
+                    const matchDomain = item.cat === domain;
+                    const matchCity = city === 'all' || item.city === city;
+                    const matchFee = item.fee <= maxFee;
+
+                    if (matchDomain && matchCity && matchFee) {
+                        const diff = agg - item.cutoff;
+                        
+                        if (diff >= 2.5) {
+                            safe.push({ ...item, diff });
+                        } else if (diff >= -2.5) {
+                            target.push({ ...item, diff });
+                        } else if (diff >= -7.5) {
+                            reach.push({ ...item, diff });
+                        }
+                    }
+                });
+
+                if (bias === 'safe') {
+                    reach = [];
+                } else if (bias === 'ambitious') {
+                    safe = safe.slice(0, 2);
+                }
+
+                renderCategoryList(listSafe, safe, 'emerald');
+                renderCategoryList(listTarget, target, 'blue');
+                renderCategoryList(listReach, reach, 'rose');
+
+                statSafe.textContent = safe.length;
+                statTarget.textContent = target.length;
+                statReach.textContent = reach.length;
+
+                badgeSafe.textContent = `${safe.length} Matched`;
+                badgeTarget.textContent = `${target.length} Matched`;
+                badgeReach.textContent = `${reach.length} Matched`;
+            }
+
+            function renderCategoryList(container, items, color) {
+                container.innerHTML = '';
+
+                if (items.length === 0) {
+                    container.innerHTML = `
+                        <div class="p-4 rounded-xl border border-dashed border-white/10 text-center text-xs text-gray-500 font-medium">
+                            No program matching this tier under current parameters.
+                        </div>
+                    `;
+                    return;
+                }
+
+                items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "p-4 bg-[#080c14] border border-white/5 hover:border-white/20 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 transition";
+                    
+                    const diffText = item.diff >= 0 ? `+${item.diff.toFixed(2)}%` : `${item.diff.toFixed(2)}%`;
+                    const diffBadgeColor = item.diff >= 0 ? 'text-emerald-400 bg-emerald-500/10' : 'text-rose-400 bg-rose-500/10';
+
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-black text-white text-sm">${item.uni}</span>
+                                <span class="text-xs font-semibold text-gray-400">• ${item.dept}</span>
+                            </div>
+                            <div class="text-[11px] text-gray-500 mt-1 flex items-center gap-3">
+                                <span>📍 ${item.city}</span>
+                                <span>💳 PKR ${item.fee.toLocaleString()}/sem</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 self-end sm:self-center">
+                            <div class="text-right">
+                                <span class="text-[10px] text-gray-500 uppercase block font-bold">Cutoff</span>
+                                <span class="text-xs font-black text-white">${item.cutoff.toFixed(2)}%</span>
+                            </div>
+                            <span class="px-2.5 py-1 text-xs font-black rounded-lg ${diffBadgeColor}">
+                                ${diffText}
+                            </span>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            btn.addEventListener('click', runRecommendationStrategy);
+            recAgg.addEventListener('input', runRecommendationStrategy);
+            recDomain.addEventListener('change', runRecommendationStrategy);
+            recCity.addEventListener('change', runRecommendationStrategy);
+            recBudget.addEventListener('change', runRecommendationStrategy);
+            recBias.addEventListener('change', runRecommendationStrategy);
+
+            runRecommendationStrategy();
+        });
+    </script>
+</body>
+</html>

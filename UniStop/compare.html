@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniStop | Pro University Comparison Matrix 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #030712; }
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: rgba(10, 16, 28, 0.95); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .blue-glow { box-shadow: 0 0 60px -15px rgba(37, 99, 235, 0.3); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        .meter-bar { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+    <!-- TOP HEADER NAVBAR -->
+    <header class="sticky top-0 z-50 bg-[#030712]/85 backdrop-blur-md border-b border-white/5 px-6 lg:px-12 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- Exact Consistent Brand Logo -->
+            <a href="index.html" class="text-2xl font-black tracking-tight text-white inline-block">
+                UniStop<span class="text-blue-500">.</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                <a href="calculator.html" class="hover:text-white transition">Calculators</a>
+                <a href="chance.html" class="hover:text-white transition">Chance Estimator</a>
+                <a href="universities.html" class="hover:text-white transition">Universities</a>
+                <a href="compare.html" class="text-white font-semibold transition border-b-2 border-blue-500 pb-1">Compare</a>
+                <a href="recommendations.html" class="hover:text-white transition">Recommendations</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <button onclick="window.print()" class="p-2.5 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition" title="Print/Export Report">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                </button>
+                <a href="calculator.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center gap-2">
+                    <span>Launch Calc</span>
+                    <span class="text-xs">↗</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN COMPARE WORKSPACE -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-6 lg:px-12 py-10 relative">
+        
+        <!-- Ambient Background Glow -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-blue-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+
+        <!-- Hero Header -->
+        <div class="mb-10 space-y-3">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="text-blue-400 text-[11px] font-bold tracking-widest uppercase">HEAD-TO-HEAD DECISION ENGINE 2026</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+                PRO COMPARISON <br class="hidden sm:inline" />ANALYTICS MATRIX.
+            </h1>
+            <p class="text-gray-400 text-sm sm:text-base max-w-2xl">
+                Execute deep architectural comparisons across degree programs, total 4-year financial investments, difficulty ratings, entry test mechanics, and career outcome scores.
+            </p>
+        </div>
+
+        <!-- SELECTOR BAR PANEL -->
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl mb-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            
+            <!-- University A Select -->
+            <div class="md:col-span-5 space-y-2">
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider">Primary Target (University A)</label>
+                <select id="uni-a-select" class="w-full py-3.5 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-base focus:outline-none focus:border-blue-500 transition font-extrabold">
+                    <!-- Populated dynamically via JS -->
+                </select>
+            </div>
+
+            <!-- VS Badge -->
+            <div class="md:col-span-2 flex flex-col items-center justify-center">
+                <div class="w-14 h-14 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center font-black text-blue-400 text-base shadow-lg shadow-blue-600/20">
+                    VS
+                </div>
+            </div>
+
+            <!-- University B Select -->
+            <div class="md:col-span-5 space-y-2">
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider">Alternative Choice (University B)</label>
+                <select id="uni-b-select" class="w-full py-3.5 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-base focus:outline-none focus:border-blue-500 transition font-extrabold">
+                    <!-- Populated dynamically via JS -->
+                </select>
+            </div>
+
+        </div>
+
+        <!-- COST & DEGREE DURATION SUMMARY COMPARISON BAR -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="glass-panel p-6 rounded-2xl flex items-center justify-between border-l-4 border-l-blue-500">
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Estimated 4-Year Tuition Gap</span>
+                    <span id="cost-diff-value" class="text-xl font-black text-white">Calculating...</span>
+                </div>
+                <span id="cheaper-tag" class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-bold rounded-lg border border-blue-500/20">--</span>
+            </div>
+            
+            <div class="glass-panel p-6 rounded-2xl flex items-center justify-between border-l-4 border-l-emerald-500">
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Entry Test Complexity Index</span>
+                    <span id="test-diff-value" class="text-xl font-black text-white">Calculating...</span>
+                </div>
+                <span id="test-tag" class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/20">--</span>
+            </div>
+        </div>
+
+        <!-- COMPARISON MATRIX CARDS GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            
+            <!-- CARD A -->
+            <div class="glass-panel p-6 sm:p-8 rounded-3xl space-y-6 relative overflow-hidden" id="card-a-container">
+                <div class="flex items-start justify-between border-b border-white/5 pb-5">
+                    <div>
+                        <span id="uni-a-rank" class="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-extrabold uppercase rounded-lg tracking-wider">Rank #1</span>
+                        <h2 id="uni-a-title" class="text-2xl sm:text-3xl font-black text-white mt-2">Loading...</h2>
+                        <p id="uni-a-location" class="text-xs font-semibold text-gray-400 mt-0.5">...</p>
+                    </div>
+                    <div id="uni-a-score" class="text-right">
+                        <span class="text-[10px] text-gray-500 uppercase font-extrabold block tracking-wider">Overall Rating</span>
+                        <span class="text-2xl font-black text-blue-400">0.0/10</span>
+                    </div>
+                </div>
+
+                <!-- Attributes Breakdown -->
+                <div id="uni-a-details" class="space-y-4 text-xs"></div>
+            </div>
+
+            <!-- CARD B -->
+            <div class="glass-panel p-6 sm:p-8 rounded-3xl space-y-6 relative overflow-hidden" id="card-b-container">
+                <div class="flex items-start justify-between border-b border-white/5 pb-5">
+                    <div>
+                        <span id="uni-b-rank" class="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-extrabold uppercase rounded-lg tracking-wider">Rank #2</span>
+                        <h2 id="uni-b-title" class="text-2xl sm:text-3xl font-black text-white mt-2">Loading...</h2>
+                        <p id="uni-b-location" class="text-xs font-semibold text-gray-400 mt-0.5">...</p>
+                    </div>
+                    <div id="uni-b-score" class="text-right">
+                        <span class="text-[10px] text-gray-500 uppercase font-extrabold block tracking-wider">Overall Rating</span>
+                        <span class="text-2xl font-black text-blue-400">0.0/10</span>
+                    </div>
+                </div>
+
+                <!-- Attributes Breakdown -->
+                <div id="uni-b-details" class="space-y-4 text-xs"></div>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM DECISION SUMMARY BOX -->
+        <div class="glass-panel p-8 rounded-3xl space-y-4">
+            <h3 class="text-xl font-black text-white flex items-center gap-2">
+                <span>⚡ Executive Verdict & Strategy Advice</span>
+            </h3>
+            <p id="executive-verdict" class="text-sm text-gray-300 leading-relaxed font-medium">
+                Select two institutions above to generate real-time comparison analytics.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 py-6 text-center text-xs text-gray-500">
+        <p>© 2026 UniStop Engine. Built for Pakistani University Admissions.</p>
+    </footer>
+
+    <!-- COMPARISON MATRIX SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const database = {
+                nust: {
+                    name: "NUST Islamabad",
+                    sector: "Public Sector",
+                    location: "Islamabad (H-12 Main Campus)",
+                    ranking: "#1 Engineering & Computing",
+                    rating: 9.6,
+                    semFee: 165000,
+                    degreeCost: 1320000, // 8 Semesters
+                    test: "NET Entry Test (75% Weightage)",
+                    testDifficulty: 92, // % index
+                    csCutoff: "78.50%",
+                    engCutoff: "68.20%",
+                    hostel: "On-campus Hostel available (High Demand)",
+                    placements: 95,
+                    campusLife: 98,
+                    academics: 96,
+                    pros: [
+                        "Top-tier research labs & startup incubator (NSTP)",
+                        "Vast 300+ acre modern residential campus",
+                        "High global employer reputation & alumni network"
+                    ],
+                    cons: [
+                        "Highly competitive NET test score cutoff",
+                        "Multiple test series required for peak aggregate score"
+                    ]
+                },
+                fast: {
+                    name: "FAST-NUCES",
+                    sector: "Private / Semi-Public",
+                    location: "Islamabad, Lahore, Karachi, CFD, Pesh",
+                    ranking: "#1 Software Industry Placement",
+                    rating: 9.4,
+                    semFee: 210000,
+                    degreeCost: 1680000,
+                    test: "NU Entry Test / SAT / NTS NAT",
+                    testDifficulty: 88,
+                    csCutoff: "74.50%",
+                    engCutoff: "N/A (CS Focused)",
+                    hostel: "Private hostels nearby campus borders",
+                    placements: 98,
+                    campusLife: 75,
+                    academics: 97,
+                    pros: [
+                        "Industry gold standard for software engineering hires",
+                        "Unrivaled coding curriculum & competitive programming drill",
+                        "Massive job offer volume prior to graduation"
+                    ],
+                    cons: [
+                        "Extremely tough academic grading (GPA stress)",
+                        "Relatively higher tuition fees per semester"
+                    ]
+                },
+                giki: {
+                    name: "GIKI Topi",
+                    sector: "Private Sector",
+                    location: "Topi, Swabi, Khyber Pakhtunkhwa",
+                    ranking: "Top Tier Private Tech Institute",
+                    rating: 9.2,
+                    semFee: 480000,
+                    degreeCost: 3840000,
+                    test: "GIKI Entry Test",
+                    testDifficulty: 90,
+                    csCutoff: "74.80%",
+                    engCutoff: "67.50%",
+                    hostel: "100% Mandatory Residential On-Campus",
+                    placements: 94,
+                    campusLife: 99,
+                    academics: 94,
+                    pros: [
+                        "Unmatched fully-residential student life ecosystem",
+                        "Cutting edge engineering facilities and faculty ratio",
+                        "Elite global alumni network in Silicon Valley & EU"
+                    ],
+                    cons: [
+                        "Substantially higher tuition fee structure",
+                        "Remote location away from major metropolitan hubs"
+                    ]
+                },
+                uet: {
+                    name: "UET Lahore",
+                    sector: "Public Sector",
+                    location: "Lahore (GT Road Main Campus)",
+                    ranking: "#1 Historical Public Engineering",
+                    rating: 8.8,
+                    semFee: 75000,
+                    degreeCost: 600000,
+                    test: "ECAT Entry Test (33% Weightage)",
+                    testDifficulty: 82,
+                    csCutoff: "79.20%",
+                    engCutoff: "71.50%",
+                    hostel: "Government subsidized campus dormitories",
+                    placements: 86,
+                    campusLife: 82,
+                    academics: 88,
+                    pros: [
+                        "Extremely affordable tuition & fee structure",
+                        "Deep historic prestige & dominant government engineering presence",
+                        "Large campus footprint with heritage infrastructure"
+                    ],
+                    cons: [
+                        "Older laboratory infrastructure in certain departments",
+                        "Traditional administrative and academic workflows"
+                    ]
+                },
+                comsats: {
+                    name: "COMSATS Islamabad",
+                    sector: "Public Sector",
+                    location: "Islamabad (Park Road Campus)",
+                    ranking: "#2 Computing & IT Index",
+                    rating: 8.9,
+                    semFee: 125000,
+                    degreeCost: 1000000,
+                    test: "NTS NAT Test / COMSATS Test",
+                    testDifficulty: 78,
+                    csCutoff: "82.50%",
+                    engCutoff: "65.00%",
+                    hostel: "Off-campus & allied private hostel network",
+                    placements: 89,
+                    campusLife: 85,
+                    academics: 90,
+                    pros: [
+                        "Prolific research output and high international publications",
+                        "Flexible entry pathways utilizing NTS NAT score",
+                        "Modern computing labs and active student societies"
+                    ],
+                    cons: [
+                        "High merit cutoff aggregate due to NTS weightages",
+                        "Limited sprawling sports fields compared to NUST"
+                    ]
+                }
+            };
+
+            const selectA = document.getElementById('uni-a-select');
+            const selectB = document.getElementById('uni-b-select');
+
+            // Populate Select Boxes
+            Object.keys(database).forEach(key => {
+                const optA = document.createElement('option');
+                optA.value = key;
+                optA.textContent = database[key].name;
+                selectA.appendChild(optA);
+
+                const optB = document.createElement('option');
+                optB.value = key;
+                optB.textContent = database[key].name;
+                selectB.appendChild(optB);
+            });
+
+            // Set default choices
+            selectA.value = 'nust';
+            selectB.value = 'fast';
+
+            function renderComparisonMatrix() {
+                const uA = database[selectA.value];
+                const uB = database[selectB.value];
+
+                // Render Left Card & Right Card
+                renderCardDetails('a', uA);
+                renderCardDetails('b', uB);
+
+                // Render Top Summary Bar
+                const costDiff = Math.abs(uA.degreeCost - uB.degreeCost);
+                document.getElementById('cost-diff-value').textContent = `PKR ${costDiff.toLocaleString()}`;
+
+                if (uA.degreeCost < uB.degreeCost) {
+                    document.getElementById('cheaper-tag').textContent = `${uA.name} is PKR ${costDiff.toLocaleString()} Cheaper`;
+                } else if (uB.degreeCost < uA.degreeCost) {
+                    document.getElementById('cheaper-tag').textContent = `${uB.name} is PKR ${costDiff.toLocaleString()} Cheaper`;
+                } else {
+                    document.getElementById('cheaper-tag').textContent = `Identical Tuition Cost`;
+                }
+
+                // Entry Test Diff
+                const testDiff = Math.abs(uA.testDifficulty - uB.testDifficulty);
+                document.getElementById('test-diff-value').textContent = `${uA.testDifficulty > uB.testDifficulty ? uA.name : uB.name} has higher entry test rigor`;
+                document.getElementById('test-tag').textContent = `Diff: ${testDiff}% Index`;
+
+                // Executive Verdict text
+                const verdictEl = document.getElementById('executive-verdict');
+                verdictEl.innerHTML = `
+                    If your primary focus is <strong>industry-ready software engineering and coding intensity</strong>, <strong>${uA.name.includes("FAST") ? uA.name : uB.name}</strong> holds the upper edge in job placements. 
+                    However, if you prioritize <strong>holistic campus culture, global research prestige, and a broader university life</strong>, <strong>${uA.name.includes("NUST") || uA.name.includes("GIKI") ? uA.name : uB.name}</strong> provides a more comprehensive 4-year ecosystem.
+                `;
+            }
+
+            function renderCardDetails(prefix, uni) {
+                document.getElementById(`uni-${prefix}-title`).textContent = uni.name;
+                document.getElementById(`uni-${prefix}-location`).textContent = `${uni.location} • ${uni.sector}`;
+                document.getElementById(`uni-${prefix}-rank`).textContent = uni.ranking;
+                document.getElementById(`uni-${prefix}-score`).querySelector('span:last-child').textContent = `${uni.rating.toFixed(1)}/10`;
+
+                const detailsContainer = document.getElementById(`uni-${prefix}-details`);
+                
+                const prosHtml = uni.pros.map(p => `<li class="flex items-start gap-2 text-emerald-400"><span>✓</span> <span>${p}</span></li>`).join('');
+                const consHtml = uni.cons.map(c => `<li class="flex items-start gap-2 text-rose-400"><span>✕</span> <span>${c}</span></li>`).join('');
+
+                detailsContainer.innerHTML = `
+                    <!-- Semester & Total Cost -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="p-3.5 bg-[#080c14] border border-white/5 rounded-xl space-y-1">
+                            <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider block">Semester Fee</span>
+                            <span class="font-extrabold text-white text-sm">PKR ${uni.semFee.toLocaleString()}</span>
+                        </div>
+                        <div class="p-3.5 bg-[#080c14] border border-white/5 rounded-xl space-y-1">
+                            <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider block">Est. 4-Yr Tuition</span>
+                            <span class="font-extrabold text-blue-400 text-sm">PKR ${uni.degreeCost.toLocaleString()}</span>
+                        </div>
+                    </div>
+
+                    <!-- Admission Entry Test -->
+                    <div class="p-3.5 bg-[#080c14] border border-white/5 rounded-xl space-y-1">
+                        <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">Admission Entry Test</span>
+                        <p class="font-extrabold text-white text-sm">${uni.test}</p>
+                    </div>
+
+                    <!-- Cutoff Scores -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="p-3 bg-[#080c14] border border-white/5 rounded-xl">
+                            <span class="text-gray-500 text-[10px] uppercase font-bold block">Est. CS Cutoff</span>
+                            <span class="font-black text-white text-xs mt-0.5 block">${uni.csCutoff}</span>
+                        </div>
+                        <div class="p-3 bg-[#080c14] border border-white/5 rounded-xl">
+                            <span class="text-gray-500 text-[10px] uppercase font-bold block">Est. Eng Cutoff</span>
+                            <span class="font-black text-white text-xs mt-0.5 block">${uni.engCutoff}</span>
+                        </div>
+                    </div>
+
+                    <!-- PERFORMANCE METERS -->
+                    <div class="p-4 bg-[#080c14] border border-white/5 rounded-2xl space-y-3">
+                        <span class="text-gray-400 text-[10px] uppercase font-bold tracking-wider block">Performance Index Ratings</span>
+                        
+                        <div>
+                            <div class="flex justify-between text-[11px] mb-1 font-semibold">
+                                <span class="text-gray-400">Industry Placements</span>
+                                <span class="text-blue-400 font-bold">${uni.placements}%</span>
+                            </div>
+                            <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                <div class="bg-blue-500 h-full meter-bar rounded-full" style="width: ${uni.placements}%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-[11px] mb-1 font-semibold">
+                                <span class="text-gray-400">Campus Life & Sports</span>
+                                <span class="text-emerald-400 font-bold">${uni.campusLife}%</span>
+                            </div>
+                            <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full meter-bar rounded-full" style="width: ${uni.campusLife}%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-[11px] mb-1 font-semibold">
+                                <span class="text-gray-400">Academic Rigor</span>
+                                <span class="text-purple-400 font-bold">${uni.academics}%</span>
+                            </div>
+                            <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                <div class="bg-purple-500 h-full meter-bar rounded-full" style="width: ${uni.academics}%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accommodation -->
+                    <div class="p-3.5 bg-[#080c14] border border-white/5 rounded-xl space-y-1">
+                        <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">Hostel Infrastructure</span>
+                        <p class="font-semibold text-gray-300">${uni.hostel}</p>
+                    </div>
+
+                    <!-- Key Advantages -->
+                    <div class="p-3.5 bg-[#080c14] border border-white/5 rounded-xl space-y-2">
+                        <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider block">Key Advantages</span>
+                        <ul class="space-y-1.5 font-medium text-[11px]">
+                            ${prosHtml}
+                        </ul>
+                    </div>
+
+                    <!-- Key Trade-offs -->
+                    <div class="p-3.5 bg-[#080c14] border border-white/5 rounded-xl space-y-2">
+                        <span class="text-gray-500 text-[10px] uppercase font-bold tracking-wider block">Key Trade-offs</span>
+                        <ul class="space-y-1.5 font-medium text-[11px]">
+                            ${consHtml}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            selectA.addEventListener('change', renderComparisonMatrix);
+            selectB.addEventListener('change', renderComparisonMatrix);
+
+            renderComparisonMatrix();
+        });
+    </script>
+</body>
+</html>

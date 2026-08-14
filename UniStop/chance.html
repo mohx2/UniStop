@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniStop | Predictive Admission Engine 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #030712; }
+        .glass-panel { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: rgba(10, 16, 28, 0.9); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .blue-glow { box-shadow: 0 0 60px -15px rgba(37, 99, 235, 0.25); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        
+        /* Custom Styling for Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #2563eb;
+            cursor: pointer;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.8);
+            border: 2px solid #ffffff;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #1e293b;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+    <!-- TOP HEADER NAVBAR -->
+    <header class="sticky top-0 z-50 bg-[#030712]/80 backdrop-blur-md border-b border-white/5 px-6 lg:px-12 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="index.html" class="text-2xl font-black tracking-tight text-white inline-block">
+                UniStop<span class="text-blue-500">.</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                <a href="calculator.html" class="hover:text-white transition">Calculators</a>
+                <a href="chance.html" class="text-white font-semibold transition border-b-2 border-blue-500 pb-1">Chance Estimator</a>
+                <a href="universities.html" class="hover:text-white transition">Universities</a>
+                <a href="compare.html" class="hover:text-white transition">Compare</a>
+                <a href="recommendations.html" class="hover:text-white transition">Recommendations</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <button class="p-2.5 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                </button>
+                <a href="calculator.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center gap-2">
+                    <span>Launch Calc</span>
+                    <span class="text-xs">↗</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CHANCE ESTIMATOR WORKSPACE -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-6 lg:px-12 py-10 relative">
+        
+        <!-- Ambient Background Glow -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <!-- Section Badge & Hero Header -->
+        <div class="mb-8 space-y-3">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="text-blue-400 text-[11px] font-bold tracking-widest uppercase">PREDICTIVE MERIT ENGINE 2026</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+                PRECISION ADMISSION <br class="hidden sm:inline" />PROBABILITIES.
+            </h1>
+            <p class="text-gray-400 text-sm sm:text-base max-w-2xl">
+                Real-time algorithmic matching against historical merit cutoffs, campus competition trends, and quota distributions across top Pakistani engineering & CS programs.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- CONTROLS FORM (LEFT) -->
+            <div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-3xl space-y-6">
+                
+                <!-- Aggregate Slider + Input -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-bold text-gray-400 uppercase tracking-wider">Your Aggregate Score</label>
+                        <span id="agg-badge" class="text-xs font-bold px-2.5 py-0.5 bg-blue-500/20 text-blue-400 rounded-md border border-blue-500/30">Competitive</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <input type="number" id="user-agg-input" value="79.50" min="0" max="100" step="0.01" class="w-32 py-2.5 px-3 bg-[#080c14] border border-white/10 rounded-xl text-white text-xl font-extrabold focus:outline-none focus:border-blue-500 transition text-center">
+                        <input type="range" id="user-agg-slider" value="79.50" min="40" max="98" step="0.1" class="w-full">
+                    </div>
+                </div>
+
+                <!-- Live Search Bar -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Search Department / Campus</label>
+                    <input type="text" id="search-query" placeholder="e.g. Cyber Security, Islamabad, Fast..." class="w-full py-3 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 transition placeholder-gray-600 font-medium">
+                </div>
+
+                <!-- University Selector -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Target Institution</label>
+                    <select id="uni-filter" class="w-full py-3.5 px-4 bg-[#080c14] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 transition font-semibold">
+                        <option value="all">All Top Universities</option>
+                        <option value="NUST">NUST Islamabad</option>
+                        <option value="FAST">FAST-NUCES (All Campuses)</option>
+                        <option value="GIKI">GIKI Topi</option>
+                        <option value="UET">UET Lahore</option>
+                        <option value="COMSATS">COMSATS Islamabad</option>
+                        <option value="ITU">ITU Lahore</option>
+                        <option value="PIEAS">PIEAS Islamabad</option>
+                        <option value="AIR">Air University</option>
+                    </select>
+                </div>
+
+                <!-- Field Category Chips -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Discipline Discipline Filter</label>
+                    <div id="cat-chips" class="flex flex-wrap gap-2">
+                        <button class="cat-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white border border-blue-500 transition" data-cat="all">All Fields</button>
+                        <button class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-gray-400 border border-white/10 hover:text-white transition" data-cat="CS">Computing & AI</button>
+                        <button class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-gray-400 border border-white/10 hover:text-white transition" data-cat="ENG">Engineering</button>
+                        <button class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-gray-400 border border-white/10 hover:text-white transition" data-cat="BUS">Business & Data</button>
+                    </div>
+                </div>
+
+                <!-- Summary Analytics Mini-Box -->
+                <div class="p-4 bg-[#080c14] border border-white/5 rounded-2xl grid grid-cols-3 gap-2 text-center">
+                    <div>
+                        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">Safe</span>
+                        <span id="count-high" class="text-lg font-black text-white">0</span>
+                    </div>
+                    <div class="border-x border-white/5">
+                        <span class="text-[10px] font-bold text-blue-400 uppercase tracking-wider block">Moderate</span>
+                        <span id="count-med" class="text-lg font-black text-white">0</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold text-rose-400 uppercase tracking-wider block">Reach</span>
+                        <span id="count-low" class="text-lg font-black text-white">0</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RESULTS LIST PANEL (RIGHT) -->
+            <div class="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl space-y-4">
+                
+                <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                    <div>
+                        <h3 class="text-lg font-black text-white">Probability Analysis</h3>
+                        <p class="text-xs text-gray-400">Comparing score against 2024–2026 expected benchmarks</p>
+                    </div>
+                    <span id="results-count" class="text-xs font-bold text-blue-400 px-3 py-1 bg-blue-500/10 rounded-lg border border-blue-500/20">0 Programs</span>
+                </div>
+
+                <!-- Dynamic Container for Department Cards -->
+                <div id="results-list" class="space-y-3 max-h-[580px] overflow-y-auto custom-scrollbar pr-1">
+                    <!-- JavaScript populates cards here -->
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 py-6 text-center text-xs text-gray-500">
+        <p>© 2026 UniStop Engine. Built for Pakistani University Admissions.</p>
+    </footer>
+
+    <!-- ENGINE LOGIC SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const database = [
+                // NUST
+                { uni: "NUST", dept: "BS Computer Science", cat: "CS", cutoff: 78.50, campus: "Islamabad" },
+                { uni: "NUST", dept: "BS Artificial Intelligence", cat: "CS", cutoff: 78.10, campus: "Islamabad" },
+                { uni: "NUST", dept: "BS Software Engineering", cat: "CS", cutoff: 77.80, campus: "Islamabad" },
+                { uni: "NUST", dept: "BS Data Science", cat: "CS", cutoff: 76.90, campus: "Islamabad" },
+                { uni: "NUST", dept: "BE Electrical Engineering", cat: "ENG", cutoff: 68.20, campus: "Islamabad" },
+                { uni: "NUST", dept: "BE Mechanical Engineering", cat: "ENG", cutoff: 66.80, campus: "Islamabad" },
+                { uni: "NUST", dept: "BE Aerospace Engineering", cat: "ENG", cutoff: 72.40, campus: "Risalpur" },
+                
+                // FAST
+                { uni: "FAST", dept: "BS Computer Science", cat: "CS", cutoff: 74.50, campus: "Islamabad" },
+                { uni: "FAST", dept: "BS Computer Science", cat: "CS", cutoff: 73.80, campus: "Lahore" },
+                { uni: "FAST", dept: "BS Software Engineering", cat: "CS", cutoff: 72.90, campus: "Islamabad" },
+                { uni: "FAST", dept: "BS Cyber Security", cat: "CS", cutoff: 72.10, campus: "Lahore" },
+                { uni: "FAST", dept: "BS Artificial Intelligence", cat: "CS", cutoff: 73.20, campus: "Islamabad" },
+                { uni: "FAST", dept: "BS Business Analytics", cat: "BUS", cutoff: 65.40, campus: "Lahore" },
+
+                // GIKI
+                { uni: "GIKI", dept: "BS Computer Science", cat: "CS", cutoff: 74.80, campus: "Topi" },
+                { uni: "GIKI", dept: "BS Cyber Security", cat: "CS", cutoff: 73.10, campus: "Topi" },
+                { uni: "GIKI", dept: "BE Mechanical Engineering", cat: "ENG", cutoff: 67.50, campus: "Topi" },
+                { uni: "GIKI", dept: "BE Electrical Engineering", cat: "ENG", cutoff: 66.00, campus: "Topi" },
+
+                // UET
+                { uni: "UET", dept: "BS Computer Science", cat: "CS", cutoff: 79.20, campus: "Main Campus LHR" },
+                { uni: "UET", dept: "BE Electrical Engineering", cat: "ENG", cutoff: 71.50, campus: "Main Campus LHR" },
+                { uni: "UET", dept: "BE Mechanical Engineering", cat: "ENG", cutoff: 70.10, campus: "Main Campus LHR" },
+
+                // COMSATS
+                { uni: "COMSATS", dept: "BS Computer Science", cat: "CS", cutoff: 82.50, campus: "Islamabad" },
+                { uni: "COMSATS", dept: "BS Software Engineering", cat: "CS", cutoff: 80.80, campus: "Islamabad" },
+                { uni: "COMSATS", dept: "BS Computer Science", cat: "CS", cutoff: 77.20, campus: "Lahore" },
+
+                // ITU
+                { uni: "ITU", dept: "BS Computer Science", cat: "CS", cutoff: 76.50, campus: "Lahore" },
+                { uni: "ITU", dept: "BS Artificial Intelligence", cat: "CS", cutoff: 75.80, campus: "Lahore" },
+
+                // PIEAS
+                { uni: "PIEAS", dept: "BS Computer Science", cat: "CS", cutoff: 77.00, campus: "Islamabad" },
+                { uni: "PIEAS", dept: "BS Electrical Engineering", cat: "ENG", cutoff: 73.50, campus: "Islamabad" },
+
+                // AIR & NUTECH
+                { uni: "AIR", dept: "BS Cyber Security", cat: "CS", cutoff: 72.80, campus: "Islamabad" },
+                { uni: "AIR", dept: "BS Computer Science", cat: "CS", cutoff: 73.50, campus: "Islamabad" }
+            ];
+
+            const aggInput = document.getElementById('user-agg-input');
+            const aggSlider = document.getElementById('user-agg-slider');
+            const aggBadge = document.getElementById('agg-badge');
+            const searchQuery = document.getElementById('search-query');
+            const uniFilter = document.getElementById('uni-filter');
+            const resultsList = document.getElementById('results-list');
+            const resultsCount = document.getElementById('results-count');
+
+            const countHigh = document.getElementById('count-high');
+            const countMed = document.getElementById('count-med');
+            const countLow = document.getElementById('count-low');
+
+            let currentCategory = "all";
+
+            // Sync input & slider
+            aggInput.addEventListener('input', () => {
+                aggSlider.value = aggInput.value;
+                evaluate();
+            });
+
+            aggSlider.addEventListener('input', () => {
+                aggInput.value = parseFloat(aggSlider.value).toFixed(2);
+                evaluate();
+            });
+
+            // Category Chips Selection
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.cat-btn').forEach(b => {
+                        b.className = "cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/5 text-gray-400 border border-white/10 hover:text-white transition";
+                    });
+                    this.className = "cat-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white border border-blue-500 transition";
+                    currentCategory = this.getAttribute('data-cat');
+                    evaluate();
+                });
+            });
+
+            function evaluate() {
+                const userAgg = parseFloat(aggInput.value) || 0;
+                const query = searchQuery.value.toLowerCase().trim();
+                const selectedUni = uniFilter.value;
+
+                // Update Header Badge status
+                if (userAgg >= 80) {
+                    aggBadge.textContent = "Strong Competitor";
+                    aggBadge.className = "text-xs font-bold px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-md border border-emerald-500/30";
+                } else if (userAgg >= 70) {
+                    aggBadge.textContent = "Competitive";
+                    aggBadge.className = "text-xs font-bold px-2.5 py-0.5 bg-blue-500/20 text-blue-400 rounded-md border border-blue-500/30";
+                } else {
+                    aggBadge.textContent = "Moderate Standing";
+                    aggBadge.className = "text-xs font-bold px-2.5 py-0.5 bg-yellow-500/20 text-yellow-400 rounded-md border border-yellow-500/30";
+                }
+
+                let high = 0, med = 0, low = 0;
+
+                let filtered = database.filter(item => {
+                    const matchUni = selectedUni === 'all' || item.uni === selectedUni;
+                    const matchCat = currentCategory === 'all' || item.cat === currentCategory;
+                    const matchQuery = item.dept.toLowerCase().includes(query) || 
+                                       item.uni.toLowerCase().includes(query) || 
+                                       item.campus.toLowerCase().includes(query);
+                    return matchUni && matchCat && matchQuery;
+                });
+
+                resultsCount.textContent = `${filtered.length} Programs Evaluated`;
+                resultsList.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    resultsList.innerHTML = `
+                        <div class="p-8 text-center text-gray-500 text-xs font-medium border border-dashed border-white/10 rounded-2xl">
+                            No matching programs found for your filters. Try adjusting your search query or aggregate range.
+                        </div>
+                    `;
+                }
+
+                filtered.forEach(item => {
+                    const diff = userAgg - item.cutoff;
+                    let statusText, statusBg, badgeColor, bufferLabel;
+
+                    if (diff >= 2.5) {
+                        high++;
+                        statusText = "Safe Admission";
+                        statusBg = "bg-emerald-500/10 border-emerald-500/20 text-emerald-400";
+                        badgeColor = "bg-emerald-500";
+                        bufferLabel = `<span class="text-emerald-400 font-bold">+${diff.toFixed(2)}% Surplus</span>`;
+                    } else if (diff >= -1.5) {
+                        med++;
+                        statusText = "Moderate Odds";
+                        statusBg = "bg-blue-500/10 border-blue-500/20 text-blue-400";
+                        badgeColor = "bg-blue-500";
+                        bufferLabel = `<span class="text-blue-400 font-bold">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}% Margin</span>`;
+                    } else {
+                        low++;
+                        statusText = "Reach / High Risk";
+                        statusBg = "bg-rose-500/10 border-rose-500/20 text-rose-400";
+                        badgeColor = "bg-rose-500";
+                        bufferLabel = `<span class="text-rose-400 font-bold">${diff.toFixed(2)}% Deficit</span>`;
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = "p-4 bg-[#080c14] border border-white/5 hover:border-white/20 rounded-2xl transition flex flex-col sm:flex-row sm:items-center justify-between gap-4 group";
+                    card.innerHTML = `
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full ${badgeColor}"></span>
+                                <span class="text-xs font-black text-gray-300 uppercase tracking-wider">${item.uni}</span>
+                                <span class="text-[10px] text-gray-500 font-semibold">• ${item.campus}</span>
+                            </div>
+                            <h4 class="text-sm font-extrabold text-white group-hover:text-blue-400 transition">${item.dept}</h4>
+                            <div class="flex items-center gap-3 text-[11px] text-gray-400 pt-0.5">
+                                <span>Est. Cutoff: <strong class="text-gray-200">${item.cutoff.toFixed(2)}%</strong></span>
+                                <span>•</span>
+                                <span>Buffer: ${bufferLabel}</span>
+                            </div>
+                        </div>
+                        <div class="sm:text-right flex items-center justify-between sm:justify-end gap-3 border-t sm:border-t-0 border-white/5 pt-2 sm:pt-0">
+                            <span class="px-3.5 py-1.5 rounded-xl text-xs font-bold border ${statusBg}">
+                                ${statusText}
+                            </span>
+                        </div>
+                    `;
+                    resultsList.appendChild(card);
+                });
+
+                countHigh.textContent = high;
+                countMed.textContent = med;
+                countLow.textContent = low;
+            }
+
+            searchQuery.addEventListener('input', evaluate);
+            uniFilter.addEventListener('change', evaluate);
+
+            evaluate();
+        });
+    </script>
+</body>
+</html>

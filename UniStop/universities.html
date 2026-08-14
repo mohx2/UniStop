@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universities | UniStop.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #06090e;
+            color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-[#06090e]">
+
+    <!-- NAVBAR (Matches index.html) -->
+    <nav class="border-b border-gray-800/60 bg-[#06090e]/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <span class="text-2xl font-extrabold tracking-tight text-white">Uni<span class="text-blue-500">Stop</span><span class="text-blue-500 font-black">.</span></span>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
+                <a href="index.html" class="hover:text-white transition">Calculators</a>
+                <a href="index.html#chance" class="hover:text-white transition">Chance Estimator</a>
+                <a href="universities.html" class="text-white font-semibold border-b-2 border-blue-500 pb-1">Universities</a>
+                <a href="index.html#compare" class="hover:text-white transition">Compare</a>
+                <a href="index.html#recommendations" class="hover:text-white transition">Recommendations</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <button class="p-2 text-gray-400 hover:text-white transition rounded-lg border border-gray-800/80 bg-gray-900/40">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                </button>
+                <a href="index.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-sm shadow-lg shadow-blue-600/20 transition flex items-center gap-1.5">
+                    Launch Calc <span class="text-xs">↗</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <span class="px-3.5 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-widest rounded-full">ADMISSION INDEX 2026</span>
+            <h1 class="text-4xl sm:text-5xl font-black text-white mt-4 tracking-tight">Explore Universities & Cutoffs</h1>
+            <p class="text-gray-400 mt-3 text-sm sm:text-base">Filter through top Pakistani universities, inspect historical 5-year closing merit cutoffs, entry test formulas, and eligibility requirements.</p>
+        </div>
+
+        <!-- FILTER BAR -->
+        <div class="bg-gray-900/40 border border-gray-800/80 p-4 sm:p-5 rounded-2xl shadow-2xl mb-10 backdrop-blur-md">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                <div class="md:col-span-7 relative">
+                    <input type="text" id="search-input" placeholder="Search by university name, abbreviation, city, or discipline..." 
+                        class="w-full pl-10 pr-4 py-3 bg-[#06090e] border border-gray-800 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm transition">
+                    <span class="absolute left-3.5 top-3.5 text-gray-500 text-sm">🔍</span>
+                </div>
+
+                <div class="md:col-span-3">
+                    <select id="city-filter" class="w-full py-3 px-4 bg-[#06090e] border border-gray-800 rounded-xl text-gray-200 text-sm focus:outline-none focus:border-blue-500 transition">
+                        <option value="ALL">All Cities</option>
+                    </select>
+                </div>
+
+                <div class="md:col-span-2 text-right">
+                    <span class="text-[10px] text-gray-500 block uppercase font-bold tracking-wider">DATABASE LOADED</span>
+                    <span id="uni-count-badge" class="text-sm font-bold text-blue-400">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DYNAMIC GRID -->
+        <div id="uni-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </main>
+
+    <!-- MODAL -->
+    <div id="uni-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm p-4 overflow-y-auto flex items-center justify-center">
+        <div class="bg-[#0b0f17] border border-gray-800 rounded-2xl max-w-4xl w-full p-6 sm:p-8 relative shadow-2xl my-8 max-h-[90vh] overflow-y-auto text-left" id="modal-body"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800/60 bg-[#06090e] py-8 mt-16 text-center text-gray-500 text-xs">
+        <p>© 2026 UniStop Portal. All rights reserved.</p>
+    </footer>
+
+    <!-- SCRIPT LOADER -->
+    <script src="data.js"></script>
+
+    <script>
+        // Emergency direct render execution using your data.js file
+        (function renderDirectoryData() {
+            // Find dataset variable in data.js
+            var db = null;
+            if (typeof universitiesData !== 'undefined') db = universitiesData;
+            else if (typeof unisData !== 'undefined') db = unisData;
+            else if (typeof universities !== 'undefined') db = universities;
+            else if (window.universitiesData) db = window.universitiesData;
+
+            if (!db || !Array.isArray(db)) {
+                console.error("Dataset not found in data.js. Ensure data.js declares an array.");
+                return;
+            }
+
+            var badge = document.getElementById('uni-count-badge');
+            var grid = document.getElementById('uni-grid');
+            var searchInput = document.getElementById('search-input');
+            var cityFilter = document.getElementById('city-filter');
+            var modal = document.getElementById('uni-modal');
+            var modalBody = document.getElementById('modal-body');
+
+            if (badge) badge.textContent = db.length + " Universities";
+
+            // Populate Cities
+            if (cityFilter) {
+                var cities = [];
+                db.forEach(function(u) { if (u.city && cities.indexOf(u.city) === -1) cities.push(u.city); });
+                cities.sort();
+                cityFilter.innerHTML = '<option value="ALL">All Cities</option>';
+                cities.forEach(function(c) {
+                    var opt = document.createElement('option');
+                    opt.value = c; opt.textContent = c;
+                    cityFilter.appendChild(opt);
+                });
+            }
+
+            function drawCards(list) {
+                if (!grid) return;
+                grid.innerHTML = '';
+
+                if (list.length === 0) {
+                    grid.innerHTML = '<div class="col-span-full text-center py-16 bg-gray-900/30 rounded-2xl border border-gray-800"><p class="text-gray-400">No universities match your criteria.</p></div>';
+                    return;
+                }
+
+                list.forEach(function(uni) {
+                    var card = document.createElement('div');
+                    card.className = "bg-gray-900/40 rounded-2xl border border-gray-800/80 p-6 flex flex-col justify-between hover:border-blue-500/50 hover:shadow-xl transition-all duration-300 cursor-pointer group";
+
+                    var logoMarkup = uni.logo ? '<img src="' + uni.logo + '" class="w-12 h-12 object-contain bg-white rounded-xl p-1.5 shadow-md" onerror="this.style.display=\'none\'">' : '<div class="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-xl flex items-center justify-center font-bold text-sm border border-blue-500/30">' + (uni.shortName || 'UNI') + '</div>';
+
+                    var testName = (uni.formula && uni.formula.testName) ? uni.formula.testName : (uni.entryTest || 'Academic Test');
+                    var deptsCount = uni.departments ? uni.departments.length : 0;
+
+                    card.innerHTML = 
+                        '<div>' +
+                            '<div class="flex items-center space-x-4 mb-4">' + logoMarkup +
+                                '<div>' +
+                                    '<h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition leading-tight">' + (uni.name || 'University') + '</h3>' +
+                                    '<span class="inline-block mt-1 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-blue-950/80 text-blue-300 border border-blue-800/50">' + (uni.shortName || '') + ' • ' + (uni.city || 'Pakistan') + '</span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<p class="text-xs text-emerald-400 font-semibold mb-3">🏆 ' + (uni.qsRanking || 'Top Ranked') + '</p>' +
+                            '<div class="space-y-1.5 text-xs text-gray-300 mb-4 bg-[#06090e]/80 p-3 rounded-lg border border-gray-800/60">' +
+                                '<p><strong class="text-gray-400">Rating:</strong> ⭐ <span class="text-yellow-400 font-bold">' + (uni.overallRating || uni.rating || 'N/A') + '</span>/10</p>' +
+                                '<p><strong class="text-gray-400">Entry Test:</strong> ' + testName + '</p>' +
+                                '<p><strong class="text-gray-400">Programs:</strong> ' + deptsCount + ' Available</p>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="pt-3 border-t border-gray-800/60 flex items-center justify-between text-blue-400 text-xs font-semibold">' +
+                            '<span>View Profile & Cutoffs</span><span>→</span>' +
+                        '</div>';
+
+                    card.onclick = function() { openProfileModal(uni); };
+                    grid.appendChild(card);
+                });
+            }
+
+            function openProfileModal(uni) {
+                if (!modal || !modalBody) return;
+                var depts = uni.departments || [];
+                var rows = depts.map(function(d) {
+                    return '<tr class="border-b border-gray-800 text-xs">' +
+                        '<td class="py-3 px-4 font-semibold text-white">' + (d.name || 'N/A') + '</td>' +
+                        '<td class="py-3 px-4 text-emerald-400 font-bold">' + (d.closingMerit2025 || '--') + '</td>' +
+                        '<td class="py-3 px-4 text-gray-300">' + (d.closingMerit2024 || '--') + '</td>' +
+                        '<td class="py-3 px-4 text-gray-400">' + (d.closingMerit2023 || '--') + '</td>' +
+                        '<td class="py-3 px-4 text-gray-500">' + (d.closingMerit2022 || '--') + '</td>' +
+                        '<td class="py-3 px-4 text-gray-500">' + (d.closingMerit2021 || '--') + '</td>' +
+                    '</tr>';
+                }).join('');
+
+                modalBody.innerHTML = 
+                    '<div class="flex items-start justify-between border-b border-gray-800 pb-4 mb-6">' +
+                        '<div><h2 class="text-2xl font-bold text-white">' + uni.name + '</h2><p class="text-xs text-gray-400">📍 ' + uni.city + '</p></div>' +
+                        '<button onclick="document.getElementById(\'uni-modal\').classList.add(\'hidden\')" class="text-gray-400 hover:text-white text-2xl font-bold">&times;</button>' +
+                    '</div>' +
+                    '<h3 class="text-base font-bold text-white mb-3">📊 5-Year Cutoff History</h3>' +
+                    '<div class="overflow-x-auto rounded-xl border border-gray-800"><table class="w-full text-left bg-[#06090e]"><thead class="bg-gray-900 text-xs text-gray-400"><tr><th class="py-3 px-4">Program</th><th class="py-3 px-4 text-emerald-400">2025</th><th class="py-3 px-4">2024</th><th class="py-3 px-4">2023</th><th class="py-3 px-4">2022</th><th class="py-3 px-4">2021</th></tr></thead><tbody>' + (rows || '<tr><td colspan="6" class="p-4 text-center text-xs text-gray-500">No program details.</td></tr>') + '</tbody></table></div>';
+
+                modal.classList.remove('hidden');
+            }
+
+            function applyFilters() {
+                var q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+                var city = cityFilter ? cityFilter.value : 'ALL';
+
+                var filtered = db.filter(function(u) {
+                    var nameMatch = (u.name || '').toLowerCase().indexOf(q) !== -1 || (u.shortName || '').toLowerCase().indexOf(q) !== -1;
+                    var cityMatch = city === 'ALL' || (u.city || '').toLowerCase() === city.toLowerCase();
+                    return nameMatch && cityMatch;
+                });
+
+                drawCards(filtered);
+            }
+
+            if (searchInput) searchInput.oninput = applyFilters;
+            if (cityFilter) cityFilter.onchange = applyFilters;
+
+            drawCards(db);
+        })();
+    </script>
+</body>
+</html>
