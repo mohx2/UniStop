@@ -632,4 +632,40 @@ body {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
+
+  /* Prevent fixed-width containers from overflowing */
+  div, section, header, main, footer, .hero, .container, .card, .grid {
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Force Hero and NUST Card section to center properly */
+  .hero-container, .hero-content, .stats-container {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    text-align: center !important;
+  }
+
+  /* Fix stats layout */
+  .stats-grid, .stats-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Center buttons */
+  .hero-buttons, .cta-buttons {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+  }
+
+  .hero-buttons a, .hero-buttons button {
+    width: 100% !important;
+  }
 }
